@@ -91,6 +91,11 @@ class RecommendableTest < Test::Unit::TestCase
         assert_equal 1, Movie.find_recommendations_for(@person1,
           :preferences => p, :strategy => strategy, :limit => 1).size
       end
+
+      should "be able to get recommendations as array or activerecord" do
+        assert Movie.find_recommendations_for(@person1).is_a?(Array)
+        assert Movie.find_recommendations_for(@person2, { :as_activerecord => true }).is_a?(ActiveRecord::Relation)
+      end
     end
   end
 
